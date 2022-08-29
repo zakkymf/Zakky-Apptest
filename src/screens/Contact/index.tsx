@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, Text, FlatList, SafeAreaView, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {FloatingButton} from '../../components/Button';
@@ -9,7 +16,7 @@ import {getContact} from '../../store/ContactStore';
 import {Colors} from '../../theme';
 import styles from './style';
 
-const Contact = () => {
+const Contact = ({navigation}: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const contactState = useSelector((state: RootState) => state.contactReducer);
 
@@ -45,27 +52,44 @@ const Contact = () => {
     return <Text style={styles.fabText}>+</Text>;
   };
 
+  const onFloatingButtonPress = () => {
+    navigation.navigate('AddContactScreen');
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar
-        barStyle="dark-content"
+        barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
       <View style={styles.container}>
         <Header />
-        <View style={styles.content}>
-          <Text
-            style={
-              styles.textLen
-            }>{`My Contacts(${contactState.data?.length})`}</Text>
-          <FlatList
-            data={contactState.data}
-            renderItem={renderItem}
-            keyExtractor={(item: any) => item?.id?.toString()}
+        {contactState.loading ? (
+          <ActivityIndicator
+            size="large"
+            color={Colors.caramel}
+            style={styles.loading}
           />
-        </View>
-        <FloatingButton renderIcon={renderIcon} onPress={() => null} />
+        ) : (
+          <>
+            <View style={styles.content}>
+              <Text
+                style={
+                  styles.textLen
+                }>{`My Contacts(${contactState.data?.length})`}</Text>
+              <FlatList
+                data={contactState.data}
+                renderItem={renderItem}
+                keyExtractor={(item: any) => item?.id?.toString()}
+              />
+            </View>
+          </>
+        )}
+        <FloatingButton
+          renderIcon={renderIcon}
+          onPress={onFloatingButtonPress}
+        />
       </View>
     </SafeAreaView>
   );

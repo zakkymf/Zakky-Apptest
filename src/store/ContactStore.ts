@@ -6,17 +6,33 @@ import API from '../config/API';
 interface ContactState {
   loading: boolean;
   data: any;
+  firstName: string;
+  lastName: string;
+  age: string;
 }
 
 const initialState: ContactState = {
   data: null,
   loading: false,
+  firstName: '',
+  lastName: '',
+  age: '',
 };
 
 const contactSlice = createSlice({
   name: 'contactSlice',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setFirstName: (state, action) => {
+      state.firstName = action.payload;
+    },
+    setLastName: (state, action) => {
+      state.lastName = action.payload;
+    },
+    setAge: (state, action) => {
+      state.age = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getContact.pending, state => {
       state.loading = true;
@@ -40,4 +56,5 @@ export const getContact = createAsyncThunk('getContact', async () => {
   }
 });
 
+export const {setFirstName, setLastName, setAge} = contactSlice.actions;
 export default contactSlice.reducer;

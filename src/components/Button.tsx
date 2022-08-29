@@ -7,12 +7,12 @@ import {
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Colors} from '../theme';
+import {Colors, Fonts} from '../theme';
 
 interface ButtonProps {
   label: string;
   onPress: () => void;
-  colors: string[];
+  colors?: string[];
 }
 
 interface FloatingButtonProps {
@@ -27,9 +27,10 @@ const Button: React.FC<ButtonProps> = ({label, colors, onPress}) => {
     <LinearGradient
       start={{x: 0, y: 0}}
       end={{x: 1, y: 0}}
+      style={styles.linear}
       colors={colors ?? [Colors.caramel, Colors.choco]}>
-      <TouchableOpacity onPress={onPress}>
-        <Text>{label}</Text>
+      <TouchableOpacity style={styles.standartButton} onPress={onPress}>
+        <Text style={styles.label}>{label}</Text>
       </TouchableOpacity>
     </LinearGradient>
   );
@@ -70,6 +71,21 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  linear: {
+    height: 48,
+    width: '100%',
+    borderRadius: 10,
+  },
+  standartButton: {
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    fontSize: 12,
+    color: Colors.white,
+    fontFamily: Fonts.type.monserratDemi,
   },
 });
 
