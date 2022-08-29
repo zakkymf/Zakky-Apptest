@@ -16,11 +16,7 @@ const Contact = () => {
 
   const renderItem = ({item}: any) => {
     return (
-      <List
-        name={`${item?.firstName} ${item?.lastName}`}
-        photo={item?.photo}
-        age={item?.age}
-      />
+      <List name={`${item?.firstName} ${item?.lastName}`} photo={item?.photo} />
     );
   };
 

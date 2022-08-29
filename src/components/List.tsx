@@ -1,40 +1,40 @@
 import React from 'react';
 import {
   Text,
-  View,
   StyleSheet,
   TouchableOpacity,
   StyleProp,
   ImageStyle,
 } from 'react-native';
+import {Colors, Fonts} from '../theme';
 import Avatar from './Avatar';
 
 interface ListProps {
   name: string;
   photo: string;
-  age: number;
   avatarStyle?: StyleProp<ImageStyle>;
 }
 
-const List: React.FC<ListProps> = ({name, photo, age, avatarStyle}) => {
+const List: React.FC<ListProps> = ({name, photo, avatarStyle}) => {
   return (
     <TouchableOpacity style={styles.list}>
       <Avatar source={photo} avatarStyle={avatarStyle} />
-      <View style={styles.detail}>
-        <Text>{name}</Text>
-        <Text>{age}</Text>
-      </View>
+      <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   list: {
+    paddingVertical: 5,
     alignItems: 'center',
     flexDirection: 'row',
   },
-  detail: {
-    marginLeft: 10,
+  name: {
+    fontSize: 14,
+    marginLeft: 15,
+    color: Colors.black,
+    fontFamily: Fonts.type.monserrat,
   },
 });
 
