@@ -13,11 +13,12 @@ interface ListProps {
   name: string;
   photo: string;
   avatarStyle?: StyleProp<ImageStyle>;
+  onPress: () => void;
 }
 
-const List: React.FC<ListProps> = ({name, photo, avatarStyle}) => {
+const List: React.FC<ListProps> = ({name, photo, onPress, avatarStyle}) => {
   return (
-    <TouchableOpacity style={styles.list}>
+    <TouchableOpacity style={styles.list} onPress={onPress}>
       <Avatar source={photo} avatarStyle={avatarStyle} />
       <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>

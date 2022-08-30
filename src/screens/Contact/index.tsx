@@ -14,6 +14,7 @@ import List from '../../components/List';
 import {AppDispatch, RootState} from '../../store';
 import {getContact} from '../../store/ContactStore';
 import {Colors} from '../../theme';
+import Toast from 'react-native-toast-message';
 import styles from './style';
 
 const Contact = ({navigation}: any) => {
@@ -21,16 +22,26 @@ const Contact = ({navigation}: any) => {
   const contactState = useSelector((state: RootState) => state.contactReducer);
 
   useEffect(() => {
-    getContactData();
+    navigation.addListener('focus', () => {
+      getContactData();
+    });
   }, []);
 
   const getContactData = () => {
     dispatch(getContact());
   };
 
+  const onListPress = (item: any) => {
+    navigation.navigate('DetailContactScreen', item);
+  };
+
   const renderItem = ({item}: any) => {
     return (
-      <List name={`${item?.firstName} ${item?.lastName}`} photo={item?.photo} />
+      <List
+        name={`${item?.firstName} ${item?.lastName}`}
+        photo={item?.photo}
+        onPress={() => onListPress(item)}
+      />
     );
   };
 
@@ -91,6 +102,7 @@ const Contact = ({navigation}: any) => {
           onPress={onFloatingButtonPress}
         />
       </View>
+      <Toast />
     </SafeAreaView>
   );
 };

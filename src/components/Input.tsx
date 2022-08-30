@@ -6,8 +6,9 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
-import {Colors, Fonts} from '../theme';
+import {Fonts} from '../theme';
 
 interface InputProps {
   editable?: boolean;
@@ -16,7 +17,7 @@ interface InputProps {
   placeholder?: string;
   keyboardType?: any;
   containerStyle?: StyleProp<ViewStyle>;
-  textInputStyle?: StyleProp<ViewStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
   onChangeText?: (value: string) => void;
 }
 
