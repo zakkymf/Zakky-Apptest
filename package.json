@@ -30,6 +30,8 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@testing-library/jest-native": "^4.0.11",
+    "@testing-library/react-native": "^11.0.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.69.5",
@@ -45,6 +47,14 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "<rootDir>/jest.mock.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "coverageDirectory": "./coverage/",
     "moduleFileExtensions": [
       "ts",
       "tsx",

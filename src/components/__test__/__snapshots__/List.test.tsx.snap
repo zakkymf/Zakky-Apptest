@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/List render list component 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "opacity": 1,
+      "paddingVertical": 10,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": "https://www.helpforenglish.cz/files/wiki.jpeg",
+      }
+    }
+    style={
+      Object {
+        "borderRadius": 20,
+        "height": 40,
+        "width": 40,
+      }
+    }
+  />
+  <Text
+    style={
+      Object {
+        "color": "#000000",
+        "fontFamily": "Montserrat-Regular",
+        "fontSize": 14,
+        "marginLeft": 15,
+      }
+    }
+  >
+    Zakky Muhammad Fajar
+  </Text>
+</View>
+`;

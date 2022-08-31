@@ -36,6 +36,7 @@ const Input: React.FC<InputProps> = ({
       <Text style={styles.label}>{label}</Text>
       <TextInput
         value={value}
+        testID="input"
         editable={editable}
         style={[styles.input, textInputStyle]}
         placeholder={placeholder}

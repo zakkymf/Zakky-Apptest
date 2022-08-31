@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/Avatar render avatar component 1`] = `
+<Image
+  source={
+    Object {
+      "uri": "https://www.helpforenglish.cz/files/wiki.jpeg",
+    }
+  }
+  style={
+    Object {
+      "borderRadius": 20,
+      "height": 40,
+      "width": 40,
+    }
+  }
+/>
+`;
+
+exports[`@components/Avatar render default avatar 1`] = `
+<Image
+  source={
+    Object {
+      "testUri": "../../../src/assets/images/default_avatar.png",
+    }
+  }
+  style={
+    Object {
+      "borderRadius": 20,
+      "height": 40,
+      "width": 40,
+    }
+  }
+/>
+`;

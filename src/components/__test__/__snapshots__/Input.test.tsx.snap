@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@components/Input render input component 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flexDirection": "column",
+        "marginBottom": 15,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontFamily": "Montserrat-Regular",
+        "fontSize": 12,
+      }
+    }
+  >
+    First Name
+  </Text>
+  <TextInput
+    onChangeText={[Function]}
+    style={
+      Array [
+        Object {
+          "borderBottomWidth": 0.5,
+          "fontFamily": "Montserrat-Regular",
+          "fontSize": 14,
+          "height": 40,
+          "marginTop": 5,
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+    testID="input"
+    value=""
+  />
+</View>
+`;
