@@ -12,6 +12,7 @@ interface ContactState {
   age: string;
   photo: string;
   contact: any;
+  fecthDetail: boolean;
 }
 
 const initialState: ContactState = {
@@ -22,6 +23,7 @@ const initialState: ContactState = {
   age: '',
   photo: '',
   contact: null,
+  fecthDetail: false,
 };
 
 export const getContact = createAsyncThunk('getContact', async () => {
@@ -29,7 +31,7 @@ export const getContact = createAsyncThunk('getContact', async () => {
   if (response?.status === 200) {
     return response?.data?.data;
   } else {
-    Alert.alert('Terjadi Kesalahan', response?.data?.message);
+    Alert.alert('Oops', response?.data?.message);
   }
 });
 
@@ -43,7 +45,7 @@ export const saveContact = createAsyncThunk(
       photo: params?.photo,
     };
     const response = await axios.post(API.getContact, data);
-    if (response?.status === 201) {
+    try {
       Toast.show({
         type: 'success',
         text1: 'Success',
@@ -51,8 +53,8 @@ export const saveContact = createAsyncThunk(
       });
       params.navigation?.navigate('ContactScreen');
       return response?.data?.data;
-    } else {
-      Alert.alert('Terjadi Kesalahan', response?.data?.message);
+    } catch (error: any) {
+      Alert.alert('Oops', error?.message);
     }
   },
 );
@@ -60,11 +62,11 @@ export const saveContact = createAsyncThunk(
 export const getContactById = createAsyncThunk(
   'getContactById',
   async (contactId: string) => {
-    const response = await axios.get(`${API.getContact}/${contactId}`);
-    if (response?.status === 200) {
+    try {
+      const response = await axios.get(`${API.getContact}/${contactId}`);
       return response?.data?.data;
-    } else {
-      Alert.alert('Terjadi Kesalahan', response?.data?.message);
+    } catch (error: any) {
+      Alert.alert('Oops', error?.message);
     }
   },
 );
@@ -72,11 +74,11 @@ export const getContactById = createAsyncThunk(
 export const deleteContactById = createAsyncThunk(
   'deleteContactById',
   async (params: any) => {
-    const response = await axios.delete(`${API.getContact}/${params?.id}`);
-    if (response?.status === 200) {
+    try {
+      const response = await axios.delete(`${API.getContact}/${params?.id}`);
       return response?.data?.data;
-    } else {
-      Alert.alert('Terjadi Kesalahan', response?.data?.message);
+    } catch (error: any) {
+      Alert.alert('Oops', error?.message);
     }
   },
 );
@@ -90,12 +92,17 @@ export const updateContact = createAsyncThunk(
       age: Number(params?.age),
       photo: params?.photo,
     };
-    const response = await axios.put(`${API.getContact}/${params?.id}`, data);
-    if (response?.status === 201) {
+    try {
+      const response = await axios.put(`${API.getContact}/${params?.id}`, data);
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Success update contact',
+      });
       params.navigation.navigate('ContactScreen');
       return response?.data?.data;
-    } else {
-      Alert.alert('Terjadi Kesalahan', response?.data?.message);
+    } catch (error: any) {
+      Alert.alert('Terjadi Kesalahan', error?.message);
     }
   },
 );
@@ -104,6 +111,12 @@ const contactSlice = createSlice({
   name: 'contactSlice',
   initialState: initialState,
   reducers: {
+    reset: state => {
+      state.firstName = '';
+      state.lastName = '';
+      state.age = '';
+      state.photo = '';
+    },
     setFirstName: (state, action) => {
       state.firstName = action.payload;
     },
@@ -129,40 +142,28 @@ const contactSlice = createSlice({
       state.loading = false;
     });
 
-    builder.addCase(saveContact.pending, state => {
-      state.loading = true;
-    });
     builder.addCase(saveContact.fulfilled, state => {
-      state.loading = false;
-    });
-    builder.addCase(saveContact.rejected, state => {
       state.loading = false;
     });
 
     builder.addCase(getContactById.pending, state => {
-      state.loading = true;
+      state.fecthDetail = true;
     });
     builder.addCase(getContactById.fulfilled, (state, action) => {
       state.contact = action.payload;
-      state.loading = false;
+      state.fecthDetail = false;
     });
     builder.addCase(getContactById.rejected, state => {
-      state.loading = false;
+      state.fecthDetail = false;
     });
 
-    builder.addCase(deleteContactById.pending, state => {
-      state.loading = true;
-    });
     builder.addCase(deleteContactById.fulfilled, state => {
-      state.loading = false;
-    });
-    builder.addCase(deleteContactById.rejected, state => {
       state.loading = false;
     });
   },
 });
 
-export const {setFirstName, setLastName, setAge, setPhoto} =
+export const {setFirstName, setLastName, setAge, setPhoto, reset} =
   contactSlice.actions;
 
 export default contactSlice.reducer;

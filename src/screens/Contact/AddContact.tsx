@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -13,6 +13,7 @@ import {Button} from '../../components/Button';
 import Input from '../../components/Input';
 import {AppDispatch, RootState} from '../../store';
 import {
+  reset,
   saveContact,
   setAge,
   setFirstName,
@@ -37,6 +38,16 @@ const AddContact = ({navigation, route}: any) => {
       dispatch(setAge(contactState.contact?.age?.toString()));
       dispatch(setPhoto(contactState.contact?.photo));
     }
+
+    return () => {
+      dispatch(reset());
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEdit ? 'Edit Contact' : 'Add New Contact',
+    });
   }, []);
 
   const Header = () => {
@@ -45,11 +56,11 @@ const AddContact = ({navigation, route}: any) => {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         colors={[Colors.caramel, Colors.choco]}
-        style={styles.header}>
+        style={styles.header2}>
         <TouchableOpacity style={styles.titleContainer} onPress={onSelectImage}>
           <Image
             source={
-              contactState.photo === ''
+              contactState.photo === '' || contactState?.photo === 'N/A'
                 ? images.default_avatar
                 : {uri: contactState.photo}
             }
@@ -107,12 +118,19 @@ const AddContact = ({navigation, route}: any) => {
       photo: contactState.photo,
       navigation,
     };
+
     if (isEdit) {
       dispatch(updateContact(data));
     } else {
       dispatch(saveContact(data));
     }
   };
+
+  const disabled =
+    contactState.firstName === '' ||
+    contactState.lastName === '' ||
+    contactState.age === '' ||
+    contactState.photo === '';
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -145,7 +163,7 @@ const AddContact = ({navigation, route}: any) => {
             keyboardType="number-pad"
             onChangeText={onChangeAge}
           />
-          <Button label="Save" onPress={onSave} />
+          <Button disabled={disabled} label="Save" onPress={onSave} />
         </View>
       </View>
     </SafeAreaView>

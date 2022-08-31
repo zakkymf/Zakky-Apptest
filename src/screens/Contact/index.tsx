@@ -64,7 +64,7 @@ const Contact = ({navigation}: any) => {
   };
 
   const onFloatingButtonPress = () => {
-    navigation.navigate('AddContactScreen');
+    navigation.navigate('AddContactScreen', {isEdit: false});
   };
 
   return (

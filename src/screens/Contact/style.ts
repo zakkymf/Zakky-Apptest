@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
   header: {
     height: 200,
   },
+  header2: {
+    height: 230,
+    paddingTop: 50,
+  },
   titleContainer: {
     flex: 1,
     alignItems: 'center',
@@ -27,6 +31,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.type.monserratDemi,
   },
   content: {
+    flex: 1,
     padding: 16,
   },
   textLen: {

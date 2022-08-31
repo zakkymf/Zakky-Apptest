@@ -27,7 +27,7 @@ const List: React.FC<ListProps> = ({name, photo, onPress, avatarStyle}) => {
 
 const styles = StyleSheet.create({
   list: {
-    paddingVertical: 5,
+    paddingVertical: 10,
     alignItems: 'center',
     flexDirection: 'row',
   },

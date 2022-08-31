@@ -6,10 +6,12 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import icons from '../../assets/icons';
+import images from '../../assets/images';
 import Input from '../../components/Input';
 import {AppDispatch, RootState} from '../../store';
 import {deleteContactById, getContactById} from '../../store/ContactStore';
@@ -37,6 +39,16 @@ const DetailContact = ({navigation, route}: any) => {
     navigation.navigate('AddContactScreen', {isEdit: true, id});
   };
 
+  if (contactState.fecthDetail) {
+    return (
+      <ActivityIndicator
+        size="large"
+        color={Colors.caramel}
+        style={styles.loading}
+      />
+    );
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar
@@ -52,7 +64,11 @@ const DetailContact = ({navigation, route}: any) => {
           style={styles.header}>
           <TouchableOpacity style={styles.titleContainer}>
             <Image
-              source={{uri: contactState.contact?.photo}}
+              source={
+                contactState.contact?.photo !== 'N/A'
+                  ? {uri: contactState.contact?.photo}
+                  : images.default_avatar
+              }
               style={styles.profilePicture}
             />
           </TouchableOpacity>

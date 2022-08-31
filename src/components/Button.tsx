@@ -13,6 +13,7 @@ interface ButtonProps {
   label: string;
   onPress: () => void;
   colors?: string[];
+  disabled?: boolean;
 }
 
 interface FloatingButtonProps {
@@ -22,15 +23,26 @@ interface FloatingButtonProps {
   onPress: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({label, colors, onPress}) => {
+const Button: React.FC<ButtonProps> = ({label, colors, disabled, onPress}) => {
   return (
     <LinearGradient
       start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}
+      end={{x: disabled ? 0 : 1, y: 0}}
       style={styles.linear}
-      colors={colors ?? [Colors.caramel, Colors.choco]}>
-      <TouchableOpacity style={styles.standartButton} onPress={onPress}>
-        <Text style={styles.label}>{label}</Text>
+      colors={
+        colors ?? !disabled ? [Colors.caramel, Colors.choco] : Colors.disabled
+      }>
+      <TouchableOpacity
+        style={styles.standartButton}
+        disabled={disabled}
+        onPress={onPress}>
+        <Text
+          style={[
+            styles.label,
+            {color: disabled ? Colors.ebony : Colors.white},
+          ]}>
+          {label}
+        </Text>
       </TouchableOpacity>
     </LinearGradient>
   );
@@ -84,7 +96,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: Colors.white,
     fontFamily: Fonts.type.monserratDemi,
   },
 });
